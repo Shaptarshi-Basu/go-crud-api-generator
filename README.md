@@ -5,9 +5,9 @@
 
 ```json
 {
-	"methods": {
-		"method": {
-			"path": "api/path"
+	"Paths": {
+		"/path": {
+			"method": "post"
 			"request": "refObject"
 			"responses": ["code" : "refObject"]
 		}
