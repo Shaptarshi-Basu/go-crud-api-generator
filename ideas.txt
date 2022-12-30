@@ -1,0 +1,4 @@
+first api generator
+then make generator so that it doesnt touch methods that are not changed
+in the specification file or whose spec match the method.
+only news handlers to be added or client for database to be added.
