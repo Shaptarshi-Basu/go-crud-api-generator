@@ -5,7 +5,7 @@
 
 ```json
 {
-	"Paths": {
+	"paths": {
 		"/path": {
 			"method": "post"
 			"request": "refObject"
