@@ -1,0 +1,18 @@
+{
+	"paths": {
+		"/path": {
+			"method": "post",
+			"request": "refObject",
+			"responses": [{
+				"200": "someObj"
+			}]
+		}
+	},
+    "refs": {
+        "SomeSuccessResponse" : {
+            "sometrribute1": [],
+            "sometrribute2": "string",
+            "sometrribute3": 1
+        }
+    }
+}
