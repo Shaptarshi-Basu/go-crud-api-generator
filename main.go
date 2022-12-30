@@ -1,13 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"go-crud-api-generator/models"
-	"encoding/json"
+	specparser "go-crud-api-generator/parser"
+	"io/ioutil"
 )
-
 
 func main() {
 	var specFile string
@@ -21,8 +21,16 @@ func main() {
 		fmt.Printf("Spec file could not be read %s", err.Error())
 	}
 	var spec models.Spec
-    if err := json.Unmarshal(byt, &spec); err != nil {
-        panic(err)
-    }
-	fmt.Printf("The spec file is %+v", spec)
+	if err := json.Unmarshal(byt, &spec); err != nil {
+		panic(err)
+	}
+	specparser.ParseRefObjectMap(spec.Refs)
+	//fmt.Printf("The spec file is %+v", spec)
+
+}
+
+type SomeSuccessResponse struct {
+	Sometrribute1 []interface{}
+	Sometrribute2 string
+	Sometrribute3 float64
 }
