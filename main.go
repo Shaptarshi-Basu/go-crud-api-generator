@@ -24,8 +24,9 @@ func main() {
 	if err := json.Unmarshal(byt, &spec); err != nil {
 		panic(err)
 	}
-	specparser.ParseRefObjectMap(spec.Refs)
-	//fmt.Printf("The spec file is %+v", spec)
+	modelList := specparser.ParseRefObjectMap(spec.Refs)
+	fmt.Printf("The spec file is %+v", modelList)
+	//creator.ModelCreator(modelMap, "test")
 
 }
 
