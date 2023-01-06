@@ -14,7 +14,7 @@
 			}]
 		}]
 	},
-    "refs": {
+	"refs": {
 		"SomeObj": {
 			"sometrribute1": ["ref.SomeObj3"],
 			"sometrribute2": "string",
@@ -29,9 +29,10 @@
 		"SomeObj3": {
 			"attr4": [true],
 			"attr5": "string",
-			"attr6": {"string" : true}
+			"attr6": {
+				"string": true
+			}
 		}
-    },
-    "databases": [] --> optional -- start with mariadb
-}	
+	}
+}
 ```
