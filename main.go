@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"go-crud-api-generator/creator"
 	"go-crud-api-generator/models"
 	specparser "go-crud-api-generator/parser"
 	"io/ioutil"
@@ -25,13 +26,10 @@ func main() {
 		panic(err)
 	}
 	modelList := specparser.ParseRefObjectMap(spec.Refs)
-	fmt.Printf("The spec file is %+v", modelList)
-	//creator.ModelCreator(modelMap, "test")
+	fmt.Printf("The spec file is %v", modelList)
+	creator.ModelCreator(modelList, "test")
+	mainFuncStr := specparser.CreateMainFunc(spec.Paths)
+	fmt.Printf("Main is %v", mainFuncStr)
+	creator.MainMethodCreator(mainFuncStr, "test")
 
-}
-
-type SomeSuccessResponse struct {
-	Sometrribute1 []interface{}
-	Sometrribute2 string
-	Sometrribute3 float64
 }
