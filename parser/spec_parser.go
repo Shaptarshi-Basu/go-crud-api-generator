@@ -11,6 +11,10 @@ import (
 	"text/template"
 )
 
+type ApiInfo struct {
+	PathsMap map[string][]models.Path
+}
+
 func ParseRefObjectMap(refObjectMap map[string]interface{}) []string {
 	var structList []string
 
@@ -42,17 +46,29 @@ func createTemplateStruct(structAttributes map[string]interface{}) string {
 	return b.String()
 }
 
-func CreateMainFunc(pathsMap map[string][]models.Path) string {
+func (api *ApiInfo) CreateMainFunc(pathsMap map[string][]models.Path) string {
 
-	fmt.Print("Creating Main")
 	var b bytes.Buffer
-	fmt.Print("Lets see")
-	fmt.Print(fetchRouteDetailsForMain(pathsMap))
 	// Create a new template
 	t := template.Must(template.New("main").Parse(apitemplates.MainTemplate))
 
 	// Execute the template
-	err := t.Execute(&b, fetchRouteDetailsForMain(pathsMap))
+	pathsMap = fetchRouteDetailsForMain(pathsMap)
+	api.PathsMap = pathsMap
+	err := t.Execute(&b, pathsMap)
+	if err != nil {
+		panic(err)
+	}
+	return b.String()
+}
+
+func (api *ApiInfo) CreateHandlerFunc() string {
+	var b bytes.Buffer
+
+	t := template.Must(template.New("main").Parse(apitemplates.HandlerFuncTemplate))
+
+	// Execute the template
+	err := t.Execute(&b, api.PathsMap)
 	if err != nil {
 		panic(err)
 	}
@@ -64,7 +80,7 @@ func fetchRouteDetailsForMain(pathsMap map[string][]models.Path) map[string][]mo
 	for k, paths := range pathsMap {
 		var editedPaths []models.Path
 		for _, path := range paths {
-			path.FuncName = util.CovertPathtoCamelCaseMethodName(k, strings.ToLower(path.Method))
+			path.FuncName = strings.Title(util.CovertPathtoCamelCaseMethodName(k, strings.ToLower(path.Method)))
 			path.Method = strings.ToUpper(path.Method)
 			editedPaths = append(editedPaths, path)
 		}
