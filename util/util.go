@@ -1,6 +1,8 @@
 package util
 
-import "strings"
+import (
+	"strings"
+)
 
 func toCamelCase(s string) string {
 	words := strings.Split(s, " ")

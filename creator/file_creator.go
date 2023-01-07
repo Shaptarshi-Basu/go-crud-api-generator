@@ -29,8 +29,9 @@ func ModelCreator(modelList []string, project string) {
 
 }
 
-func MainMethodCreator(mainFunc string, project string) {
+func MainMethodCreator(mainFunc, project, port string) {
 	mainFunc = strings.ReplaceAll(mainFunc, "<PROJECT_NAME>", project)
+	mainFunc = strings.ReplaceAll(mainFunc, "<PORT>", port)
 	f, err := os.OpenFile(fmt.Sprintf("%s/main.go", project),
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -43,7 +44,7 @@ func MainMethodCreator(mainFunc string, project string) {
 
 }
 
-func HandlerCreator(mainFunc string, project string) {
+func HandlerCreator(mainFunc, project string) {
 	err := directoryCreator(fmt.Sprintf("%s/handler", project))
 	if err != nil {
 		fmt.Printf(err.Error())
@@ -58,10 +59,4 @@ func HandlerCreator(mainFunc string, project string) {
 		log.Println(err)
 	}
 
-}
-func directoryCreator(dirPath string) error {
-	if err := os.MkdirAll(dirPath, os.ModePerm); err != nil {
-		return err
-	}
-	return nil
 }

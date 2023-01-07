@@ -1,6 +1,13 @@
 package apitemplates
 
 const (
+	ModelTemplate = `
+type StructName struct {
+		{{- range $key, $value := . }}
+		{{ $key }} {{ $value }}
+		{{- end }}
+	}
+`
 	MainTemplate = `
 package main
 
@@ -19,7 +26,7 @@ func main(){
 	router.HandleFunc("{{ $key }}", api.{{ ($path).FuncName }}).Methods("{{ ($path).Method }}")
 	{{- end }}
 	{{- end }}
-	http.ListenAndServe(":8080", router)
+	http.ListenAndServe(":<PORT>", router)
 }
 `
 	HandlerFuncTemplate = `
