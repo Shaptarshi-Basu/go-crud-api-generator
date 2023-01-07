@@ -49,9 +49,9 @@ func main(){
 	{{- end }}
 `
 	ModeFileTemplate = `
-module {{ . }}
+module {{ .ProjectName }}
 
-go 1.13
+go {{ .GoVersion }}
 
 require github.com/gorilla/mux v1.8.0
 `

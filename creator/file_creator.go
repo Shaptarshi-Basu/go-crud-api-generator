@@ -60,3 +60,20 @@ func HandlerCreator(mainFunc, project string) {
 	}
 
 }
+
+func GoModCreator(gomod, project string) {
+	err := directoryCreator(fmt.Sprintf("%s", project))
+	if err != nil {
+		fmt.Printf(err.Error())
+	}
+	f, err := os.OpenFile(fmt.Sprintf("%s/go.mod", project),
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Println(err)
+	}
+	defer f.Close()
+	if _, err := f.WriteString(fmt.Sprintf("%s\n", gomod)); err != nil {
+		log.Println(err)
+	}
+
+}

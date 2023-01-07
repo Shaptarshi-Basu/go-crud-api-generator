@@ -11,6 +11,7 @@ type envConfig struct {
 	SpecFilePath string
 	Port         string
 	ProjectName  string
+	GoVersion    string
 }
 type apiGenrerator struct {
 	spec models.Spec
@@ -44,6 +45,8 @@ func (ag *apiGenrerator) orchestrateCodeGeneration() {
 
 	creator.MainMethodCreator(ag.generateMainFunc(), ag.env.ProjectName, ag.env.Port)
 
+	creator.GoModCreator(ag.generateModFile(), ag.env.ProjectName)
+
 }
 
 func (env *envConfig) populateAPIInfosFromEnv() error {
@@ -64,6 +67,13 @@ func (env *envConfig) populateAPIInfosFromEnv() error {
 		return fmt.Errorf("The generated project name cannot be empty so has to be mentioned")
 	} else {
 		env.ProjectName = projectName
+	}
+
+	goVersion := os.Getenv("GO_VERSION")
+	if goVersion == "" {
+		env.GoVersion = "1.13"
+	} else {
+		env.GoVersion = goVersion
 	}
 	return nil
 }
