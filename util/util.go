@@ -16,5 +16,5 @@ func toCamelCase(s string) string {
 }
 
 func CovertPathtoCamelCaseMethodName(path string, method string) string {
-	return method + toCamelCase(strings.ReplaceAll(path, "/", " "))
+	return method + strings.Title(toCamelCase(strings.ReplaceAll(path, "/", " ")))
 }
