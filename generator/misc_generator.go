@@ -2,7 +2,6 @@ package generator
 
 import (
 	"bytes"
-	"fmt"
 	apitemplates "go-crud-api-generator/templates"
 	"text/template"
 )
@@ -18,7 +17,6 @@ func (api *apiGenrerator) generateModFile() string {
 	// Create a new template
 	t := template.Must(template.New("main").Parse(apitemplates.ModeFileTemplate))
 	modFile := modFile{ProjectName: api.env.ProjectName, GoVersion: api.env.GoVersion}
-	fmt.Print("The mod file is ", modFile)
 	err := t.Execute(&b, modFile)
 	if err != nil {
 		panic(err)

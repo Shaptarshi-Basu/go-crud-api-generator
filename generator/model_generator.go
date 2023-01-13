@@ -36,7 +36,6 @@ func renderModelTemplate(structAttributes map[string]interface{}) string {
 func fetchAttributeNameAndType(structAttributes map[string]interface{}) map[string]string {
 	sAttrNT := make(map[string]string, 0)
 	for k, v := range structAttributes {
-		fmt.Print("value is ", v)
 		switch t := reflect.TypeOf(v); t.Kind() {
 		case reflect.String:
 			if strings.HasPrefix(v.(string), "ref.") {
